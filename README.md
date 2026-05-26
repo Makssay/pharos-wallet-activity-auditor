@@ -1,6 +1,6 @@
 # Pharos Wallet Activity Auditor
 
-Read-only Agent Center skill for auditing Pharos wallet activity and readiness.
+Read-only Agent Center skill for auditing Pharos wallet activity and readiness across Pharos Atlantic testnet and mainnet.
 
 The skill checks:
 
@@ -10,7 +10,12 @@ The skill checks:
 - current gas readiness for a simple transfer
 - known token balances from bundled Pharos token metadata
 - optional SocialScan transaction history when `SOCIALSCAN_API_KEY` is configured
+- recent transaction classification when explorer data is available
 - activity score and actionable recommendations
+- cross-network readiness comparison with `--compare-networks`
+- CSV batch input with `--addresses-file`
+- CSV export with `--format csv`
+- polished terminal output with `--format console`
 
 ## Skill Path
 
@@ -24,6 +29,12 @@ Ask:
 
 ```text
 Use $pharos-wallet-activity-auditor to audit 0x1111111111111111111111111111111111111111 on Pharos Atlantic testnet.
+```
+
+Cross-network prompt:
+
+```text
+Use $pharos-wallet-activity-auditor to compare 0x1111111111111111111111111111111111111111 across Pharos testnet and mainnet.
 ```
 
 ## Direct CLI Demo
@@ -42,7 +53,89 @@ JSON output:
 node .agents/skills/pharos-wallet-activity-auditor/scripts/audit-wallet.mjs \
   --address 0x1111111111111111111111111111111111111111 \
   --network atlantic-testnet \
-  --format json
+  --format json \
+  --no-explorer
+```
+
+Cross-network comparison:
+
+```bash
+node .agents/skills/pharos-wallet-activity-auditor/scripts/audit-wallet.mjs \
+  --address 0x1111111111111111111111111111111111111111 \
+  --compare-networks \
+  --no-explorer
+```
+
+Polished console output for demos:
+
+```bash
+node .agents/skills/pharos-wallet-activity-auditor/scripts/audit-wallet.mjs \
+  --address 0x1111111111111111111111111111111111111111 \
+  --compare-networks \
+  --format console \
+  --no-explorer
+```
+
+Batch CSV input:
+
+```bash
+node .agents/skills/pharos-wallet-activity-auditor/scripts/audit-wallet.mjs \
+  --addresses-file wallets.csv \
+  --network atlantic-testnet
+```
+
+CSV export:
+
+```bash
+node .agents/skills/pharos-wallet-activity-auditor/scripts/audit-wallet.mjs \
+  --addresses-file wallets.csv \
+  --compare-networks \
+  --format csv \
+  --output pharos-wallet-audit.csv \
+  --no-explorer
+```
+
+Save reports:
+
+```bash
+node .agents/skills/pharos-wallet-activity-auditor/scripts/audit-wallet.mjs \
+  --address 0x1111111111111111111111111111111111111111 \
+  --network mainnet \
+  --output report.md
+```
+
+The output format is inferred from `.json`, `.csv`, `.md`, or `.markdown` when `--format` is omitted:
+
+```bash
+node .agents/skills/pharos-wallet-activity-auditor/scripts/audit-wallet.mjs \
+  --address 0x1111111111111111111111111111111111111111 \
+  --network mainnet \
+  --output report.json
+```
+
+## Example Output
+
+```text
+Activity score: 95/100 (Active)
+Native balance: 20.150407 PHRS
+Transaction count: 294
+Can pay simple transfer gas: yes
+Known tokens: USDT, WETH
+Recommendation: Wallet has native balance, known-token activity, and enough gas for a simple transfer.
+```
+
+Cross-network comparison example:
+
+```text
+Network            Score     Native balance     Tx count     Gas ready
+atlantic-testnet   95/100    20.150407 PHRS     294          yes
+mainnet            75/100    2.868757 PROS      110          yes
+```
+
+CSV export columns include:
+
+```text
+generatedAt,mode,address,network,chainId,accountType,score,scoreLabel,nativeToken,nativeBalance,transactionCount,gasReady,knownTokens,latestBlock,explorerStatus,error,recommendations,comparisonRecommendations
 ```
 
 ## Optional Explorer History
@@ -60,6 +153,8 @@ node .agents/skills/pharos-wallet-activity-auditor/scripts/audit-wallet.mjs \
   --address 0x1111111111111111111111111111111111111111 \
   --explorer-api-key your_key_here
 ```
+
+For public demos, use `--no-explorer` if you do not want to configure or expose an API key.
 
 ## Supported Networks
 
