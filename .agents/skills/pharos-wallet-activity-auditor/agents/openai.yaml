@@ -1,0 +1,6 @@
+interface:
+  display_name: "Pharos Wallet Activity Auditor"
+  short_description: "Read-only Pharos wallet health reports"
+  default_prompt: "Use $pharos-wallet-activity-auditor to audit my wallet activity on the Pharos Atlantic testnet."
+policy:
+  allow_implicit_invocation: true
