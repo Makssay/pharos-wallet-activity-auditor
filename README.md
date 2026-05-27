@@ -23,6 +23,51 @@ The skill checks:
 .agents/skills/pharos-wallet-activity-auditor
 ```
 
+## Requirements
+
+- Node.js 18+ (`fetch` is built in)
+- No npm packages required
+- Optional: `SOCIALSCAN_API_KEY` for explorer transaction history
+
+## Installation
+
+### Install into the current Agent Center style repo
+
+```powershell
+npx skills add https://github.com/Makssay/pharos-wallet-activity-auditor
+```
+
+This creates:
+
+```text
+.agents/skills/pharos-wallet-activity-auditor
+```
+
+### Clone the full repository
+
+```powershell
+git clone https://github.com/Makssay/pharos-wallet-activity-auditor.git
+cd pharos-wallet-activity-auditor
+```
+
+### Manual copy into an existing repo
+
+Copy this folder into your project:
+
+```text
+.agents/skills/pharos-wallet-activity-auditor
+```
+
+### Global Codex install
+
+Copy the skill folder into:
+
+```text
+%USERPROFILE%\.codex\skills\pharos-wallet-activity-auditor
+```
+
+Then restart Codex so it can pick up the new skill.
+
 ## Usage With Codex / Agent Center
 
 Ask:
@@ -37,7 +82,27 @@ Cross-network prompt:
 Use $pharos-wallet-activity-auditor to compare 0x1111111111111111111111111111111111111111 across Pharos testnet and mainnet.
 ```
 
-## Direct CLI Demo
+## Quick Start For Demo
+
+PowerShell one-line command:
+
+```powershell
+node .\.agents\skills\pharos-wallet-activity-auditor\scripts\audit-wallet.mjs --address 0xf337687dD73c1A13EFE39393a000f55a95B1ac54 --compare-networks --format console --no-explorer
+```
+
+Bash/macOS/Linux:
+
+```bash
+node .agents/skills/pharos-wallet-activity-auditor/scripts/audit-wallet.mjs --address 0xf337687dD73c1A13EFE39393a000f55a95B1ac54 --compare-networks --format console --no-explorer
+```
+
+## Demo Media
+
+Demo video: attach your recording in the Pharos Discord submission or link it here after publishing.
+
+Screenshot: attach a console or report screenshot in the Pharos Discord submission or link it here after publishing.
+
+## Direct CLI Usage
 
 From this repository:
 
@@ -45,6 +110,12 @@ From this repository:
 node .agents/skills/pharos-wallet-activity-auditor/scripts/audit-wallet.mjs \
   --address 0x1111111111111111111111111111111111111111 \
   --network atlantic-testnet
+```
+
+PowerShell equivalent:
+
+```powershell
+node .\.agents\skills\pharos-wallet-activity-auditor\scripts\audit-wallet.mjs --address 0x1111111111111111111111111111111111111111 --network atlantic-testnet
 ```
 
 JSON output:
@@ -57,6 +128,12 @@ node .agents/skills/pharos-wallet-activity-auditor/scripts/audit-wallet.mjs \
   --no-explorer
 ```
 
+PowerShell equivalent:
+
+```powershell
+node .\.agents\skills\pharos-wallet-activity-auditor\scripts\audit-wallet.mjs --address 0x1111111111111111111111111111111111111111 --network atlantic-testnet --format json --no-explorer
+```
+
 Cross-network comparison:
 
 ```bash
@@ -64,6 +141,12 @@ node .agents/skills/pharos-wallet-activity-auditor/scripts/audit-wallet.mjs \
   --address 0x1111111111111111111111111111111111111111 \
   --compare-networks \
   --no-explorer
+```
+
+PowerShell equivalent:
+
+```powershell
+node .\.agents\skills\pharos-wallet-activity-auditor\scripts\audit-wallet.mjs --address 0x1111111111111111111111111111111111111111 --compare-networks --no-explorer
 ```
 
 Polished console output for demos:
@@ -76,12 +159,24 @@ node .agents/skills/pharos-wallet-activity-auditor/scripts/audit-wallet.mjs \
   --no-explorer
 ```
 
+PowerShell equivalent:
+
+```powershell
+node .\.agents\skills\pharos-wallet-activity-auditor\scripts\audit-wallet.mjs --address 0x1111111111111111111111111111111111111111 --compare-networks --format console --no-explorer
+```
+
 Batch CSV input:
 
 ```bash
 node .agents/skills/pharos-wallet-activity-auditor/scripts/audit-wallet.mjs \
   --addresses-file wallets.csv \
   --network atlantic-testnet
+```
+
+PowerShell equivalent:
+
+```powershell
+node .\.agents\skills\pharos-wallet-activity-auditor\scripts\audit-wallet.mjs --addresses-file wallets.csv --network atlantic-testnet
 ```
 
 CSV export:
@@ -95,6 +190,12 @@ node .agents/skills/pharos-wallet-activity-auditor/scripts/audit-wallet.mjs \
   --no-explorer
 ```
 
+PowerShell equivalent:
+
+```powershell
+node .\.agents\skills\pharos-wallet-activity-auditor\scripts\audit-wallet.mjs --addresses-file wallets.csv --compare-networks --format csv --output pharos-wallet-audit.csv --no-explorer
+```
+
 Save reports:
 
 ```bash
@@ -104,6 +205,12 @@ node .agents/skills/pharos-wallet-activity-auditor/scripts/audit-wallet.mjs \
   --output report.md
 ```
 
+PowerShell equivalent:
+
+```powershell
+node .\.agents\skills\pharos-wallet-activity-auditor\scripts\audit-wallet.mjs --address 0x1111111111111111111111111111111111111111 --network mainnet --output report.md
+```
+
 The output format is inferred from `.json`, `.csv`, `.md`, or `.markdown` when `--format` is omitted:
 
 ```bash
@@ -111,6 +218,12 @@ node .agents/skills/pharos-wallet-activity-auditor/scripts/audit-wallet.mjs \
   --address 0x1111111111111111111111111111111111111111 \
   --network mainnet \
   --output report.json
+```
+
+PowerShell equivalent:
+
+```powershell
+node .\.agents\skills\pharos-wallet-activity-auditor\scripts\audit-wallet.mjs --address 0x1111111111111111111111111111111111111111 --network mainnet --output report.json
 ```
 
 ## Example Output
