@@ -53,6 +53,22 @@ To save a report:
 node scripts/audit-wallet.mjs --address 0x1111111111111111111111111111111111111111 --network mainnet --output report.md
 ```
 
+## Installation Notes
+
+When the user asks how to install this skill, prefer:
+
+```bash
+npx skills add https://github.com/Makssay/pharos-wallet-activity-auditor
+```
+
+For manual project installation, copy the skill folder to:
+
+```text
+.agents/skills/pharos-wallet-activity-auditor
+```
+
+For global Codex installation, copy it to `$CODEX_HOME/skills/pharos-wallet-activity-auditor` or `~/.codex/skills/pharos-wallet-activity-auditor`, then restart Codex.
+
 ## Inputs
 
 - `--address <address[,address...]>`: Required. Repeatable.
